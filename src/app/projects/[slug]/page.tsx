@@ -75,6 +75,33 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
         <p className="text-neutral-600 leading-relaxed">{cs.approach}</p>
       </section>
 
+      {/* PM Thinking */}
+      {cs.pmThinking && (
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold text-neutral-900 mb-4">Product Thinking</h2>
+          <div className="space-y-5">
+            <div>
+              <p className="text-[13px] font-semibold text-neutral-500 uppercase tracking-wide mb-1.5">Problem Framing</p>
+              <p className="text-neutral-600 leading-relaxed">{cs.pmThinking.problemFraming}</p>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-neutral-500 uppercase tracking-wide mb-1.5">Key Tradeoffs</p>
+              <p className="text-neutral-600 leading-relaxed">{cs.pmThinking.keyTradeoffs}</p>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-neutral-500 uppercase tracking-wide mb-1.5">What We Didn&apos;t Build</p>
+              <p className="text-neutral-600 leading-relaxed">{cs.pmThinking.whatWeDidntBuild}</p>
+            </div>
+            {cs.pmThinking.crossFunctional && (
+              <div>
+                <p className="text-[13px] font-semibold text-neutral-500 uppercase tracking-wide mb-1.5">Cross-Functional Leadership</p>
+                <p className="text-neutral-600 leading-relaxed">{cs.pmThinking.crossFunctional}</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* The Solution */}
       <section className="mb-12">
         <h2 className="text-xl font-semibold text-neutral-900 mb-4">Solution &amp; Execution</h2>

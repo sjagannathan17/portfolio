@@ -25,31 +25,39 @@ export default function AboutPage() {
 
       {/* Bio */}
       <div className="mt-8 space-y-5 text-neutral-600 leading-[1.75]">
-        <p>
-          I build production AI systems that solve real problems. Right now
-          I&apos;m shipping a competitive intelligence platform at Flex while
-          completing my MSBA at Santa Clara University (3.9 GPA, graduating
-          December 2026).
+        <p className="text-[17px] font-medium text-neutral-800">
+          I build AI systems that automate knowledge work — replacing hours of
+          manual research, triage, and synthesis with intelligent pipelines
+          that cost pennies per query.
         </p>
         <p>
-          My career path started with Electrical Engineering, moved into Product
-          Analytics at iGreenData where I shipped payment systems across 5 Pacific
-          nations, and now I&apos;m focused on AI/ML Product Management. Along the
-          way, I learned something critical: the gap between AI research and useful
-          products isn&apos;t technical. It&apos;s understanding what problem
-          you&apos;re actually solving.
+          That&apos;s the thread across everything I&apos;ve built: PetTriage
+          replaced $800 ER visits with $0.003 AI triage. Flex&apos;s CI platform
+          turned 15 hours/week of manual competitor research into 2-hour automated
+          briefs. LitLens compresses weeks of literature review into minutes. The
+          pattern is always the same — find expensive manual knowledge work,
+          automate it with AI, and make the economics work at scale.
         </p>
         <p>
-          I bridge that gap by combining deep technical knowledge (I can debug RAG
-          pipelines and debate architecture with engineers) with product sense
-          (I&apos;ve shipped features to 500K+ users) and user empathy (I&apos;ve
-          conducted 50+ user interviews across 3 continents).
+          My career started in Electrical Engineering, moved into Product Analytics
+          at iGreenData where I shipped payment systems across 5 Pacific nations
+          and led stakeholder alignment between ANZ Australia HQ, central banks,
+          and regulatory bodies. Now I&apos;m completing my MSBA at Santa Clara
+          University (3.9 GPA) while shipping an AI competitive intelligence
+          platform for Flex.
         </p>
         <p>
-          Currently focused on RAG architectures, multi-agent systems, and turning
-          complex AI research into products that ship. Seeking Summer 2026
-          internships in AI Product Management where I can apply this full-stack
-          perspective.
+          What I bring to PM roles: deep technical knowledge (I debug RAG
+          pipelines and debate model architecture with engineers), product
+          sense (I scope, prioritize, and say &ldquo;no&rdquo; to good ideas),
+          and cross-functional leadership (50+ user interviews across 3 continents,
+          teams of 4 through weekly sprints, stakeholders from C-suite to
+          ground-level regulators).
+        </p>
+        <p>
+          Seeking Summer 2026 internships in AI Product Management — especially
+          at companies building on LLM infrastructure, multi-agent systems, or
+          enterprise AI where I can apply this full-stack perspective.
         </p>
       </div>
 

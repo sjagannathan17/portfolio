@@ -11,11 +11,12 @@ export default function Home() {
           Srinidhi Jagannathan
         </h1>
         <p className="mt-3 text-xl text-neutral-500">
-          AI Product Manager &amp; Business Analytics
+          AI Product Manager — Automating Knowledge Work at Scale
         </p>
         <p className="mt-5 text-[17px] text-neutral-600 leading-relaxed max-w-lg">
-          Building production AI systems and turning data into strategic
-          decisions. MSBA student at Santa Clara University.
+          I build AI systems that replace manual knowledge work with intelligent
+          automation — from veterinary triage to competitive intelligence.
+          MSBA at Santa Clara University.
         </p>
         <p className="mt-3 text-[15px] text-neutral-400">
           San Jose, CA &middot; Available Summer 2026

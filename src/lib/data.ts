@@ -40,6 +40,7 @@ export interface CaseStudy {
   approach: string;
   solution: string;
   impact: string[];
+  pmThinking?: { problemFraming: string; keyTradeoffs: string; whatWeDidntBuild: string; crossFunctional?: string };
   challengesOvercome: { obstacle: string; resolution: string }[];
   learnings: string[];
   whatIdDoDifferently?: string;
@@ -73,6 +74,12 @@ export const caseStudies: CaseStudy[] = [
       "Led a 4-person team through a 10-day sprint to ship a production-ready system. Owned the product vision ('Clear answers in anxious moments — helping pet parents make confident care decisions'), conducted user research with first-time pet owners, designed the technical architecture, built the RAG pipeline and evaluation framework, and defined the freemium business model ($270K ARR potential). Made every key architecture decision: dual-agent routing, safety system design, model selection for cost optimization.",
     solution:
       "Dual-agent architecture orchestrated by LangGraph (ReAct pattern). Specialized routing between a conversational agent (GPT-4.1-mini) and a medical triage agent (GPT-4o-mini) — the system decides which agent handles each query based on clinical complexity. RAG pipeline embeds 18,909 veterinary records (openFDA adverse events, clinical notes, pain assessments, genetic profiles) in Pinecone with sub-100ms search latency. Multi-modal inputs: GPT-4o Vision analyzes symptom photos, Gemini 2.0 Flash provides real-time web search for latest treatments. 11-layer safety validation (5 input + 6 output guardrails) ensures triage-only guidance with zero diagnosis claims. Hard-coded emergency routing for life-threatening conditions bypasses the LLM entirely.",
+    pmThinking: {
+      problemFraming: "We reframed the problem from 'build a pet health chatbot' to 'reduce the anxiety gap between Google and the ER.' This shifted our success metric from response accuracy to user confidence in their care decision — a fundamentally different product.",
+      keyTradeoffs: "Safety vs. user experience: we chose hard-coded emergency routing over LLM-based detection for life-threatening symptoms. This meant slower iteration (code changes vs. prompt changes) but zero false negatives on critical cases. We also chose dual-agent over single-agent despite higher complexity — the consistency gain was worth the engineering cost.",
+      whatWeDidntBuild: "We scoped out breed-specific dietary recommendations, vet clinic locator/booking, and a symptom history timeline. Each was a good idea, but none served the core job-to-be-done: 'Should I go to the ER right now?' Keeping scope tight let us ship in 10 days.",
+      crossFunctional: "Led a 4-person team with mixed technical backgrounds. Ran daily standups, owned the product roadmap, conducted user interviews with pet owners, presented to course judges, and coordinated architecture decisions across frontend and backend engineers.",
+    },
     impact: [
       "500ms average response time (down from 2.1s with single-agent approach)",
       "70% cost reduction through strategic model selection ($0.003/query vs $0.01)",
@@ -154,6 +161,12 @@ graph.add_conditional_edges(
       "Defined the product vision, 12-week roadmap, and weekly milestones for a 4-person team. Owned the RAG pipeline architecture, API design, and auto-ingestion scheduler. Made key decisions on cost constraints ($20-50/month ceiling), hybrid search strategy, and data source prioritization. Coordinated weekly demos and managed API-first development process.",
     solution:
       "Full-stack AI platform with automated data ingestion from SEC EDGAR (daily at 4PM ET), earnings transcripts, patent filings, job boards, and news RSS. ChromaDB vector store for semantic search across ~405 documents. Hybrid RAG + Brave web search pipeline powered by Claude API — neither RAG alone (stale) nor web search alone (no proprietary context) was sufficient. Next.js dashboard with conversation memory, sentiment tracking, and anomaly detection for CapEx spikes. Total infrastructure cost: ~$20-50/month.",
+    pmThinking: {
+      problemFraming: "The initial brief was 'build a competitor analysis tool.' Through stakeholder interviews with Flex's Strategy and Sales teams, we discovered the real problem: analysts weren't lacking data — they were drowning in it. The actual need was synthesis, not search. This reframing changed our product from a document search engine to a conversational intelligence platform.",
+      keyTradeoffs: "Hybrid RAG + web search vs. RAG-only: RAG alone returned stale data (filings are quarterly), web search alone lacked proprietary context. We chose the harder path of combining both with source attribution. Also chose Claude over GPT-4 for cost — at $20-50/month total budget, every API call mattered.",
+      whatWeDidntBuild: "Cut automated email alerts, competitor SWOT generator, and PowerPoint export. The team wanted all 12 features in 12 weeks. I led the decision to ship core conversational RAG first and validate with users before building more. Three features were permanently cut after user testing showed they weren't needed.",
+      crossFunctional: "Leading a 4-person team across frontend, backend, and data engineering. Running weekly demos for Flex stakeholders in Sales, Strategy, and Executive teams. Managing sprint planning, backlog prioritization, and API-first coordination between team members.",
+    },
     impact: [
       "~405 documents indexed across 5 target companies (Flex, Jabil, Celestica, Benchmark, Sanmina)",
       "Hybrid RAG + web search with conversation memory for natural follow-up queries",
@@ -200,6 +213,12 @@ graph.add_conditional_edges(
       "Owned the predictive modeling pipeline, Tableau dashboard design, and final presentation to a panel of 6 judges and 100+ audience. Made the strategic decision to lead with business impact rather than model accuracy in our presentation — framing every metric in terms of revenue gained or cost saved rather than statistical measures.",
     solution:
       "Predictive demand model (XGBoost) that captured non-linear patterns from flash sales better than traditional ARIMA. Customer segmentation (K-means clustering) for targeted marketing. Pricing elasticity analysis with actionable discount recommendations. Real-time Tableau dashboard for KPI tracking. Delivered a complete playbook for Shopee campaign optimization.",
+    pmThinking: {
+      problemFraming: "Most teams at the competition led with model accuracy. We reframed: Nazava doesn't care about R² — they care about 'when should I run my next Shopee promotion and at what discount?' This made us build a decision tool, not a forecasting model.",
+      keyTradeoffs: "XGBoost vs. ARIMA: ARIMA was simpler to explain but couldn't capture flash sale non-linearity (62% accuracy). We chose XGBoost knowing it's harder to interpret, then invested the saved accuracy into better business storytelling. Also chose 3 high-impact insights over 10 mediocre ones for the final presentation.",
+      whatWeDidntBuild: "Scoped out real-time pricing optimization, competitor price scraping, and automated Shopee ad bidding. Each would have diluted our core message. The competition was 24 hours — ruthless prioritization was the differentiator.",
+      crossFunctional: "Led a 3-person team. Owned the modeling pipeline and presentation strategy. Coordinated with teammates on data cleaning and visualization. Presented findings to 6 industry judges and 100+ audience members.",
+    },
     impact: [
       "87% improvement in promotion decision speed — from weeks of analysis to hours",
       "1st Prize — Analytics Showdown 2025 at Santa Clara University",
@@ -249,6 +268,11 @@ graph.add_conditional_edges(
       "Made the deliberate product decision to build a conversational interface rather than a dashboard. Artists think in questions ('What playlists should I target for my indie-pop track?'), not in charts. This insight drove the entire architecture toward an NLP-powered chatbot.",
     solution:
       "AI chatbot that ingests 188,000+ tracks and generates personalized post-release strategies. NLP entity extraction for genre, mood, and tempo matching. Recommendation engine for playlist targeting, social media timing, audience segments, and promotional spend allocation. Streamlit interface for rapid iteration.",
+    pmThinking: {
+      problemFraming: "The initial idea was a Spotify analytics dashboard. Through conversations with independent artists, I learned they don't think in charts — they think in questions: 'What playlists should I target?' 'When should I push on Instagram?' This insight pivoted the entire product from dashboard to conversational interface.",
+      keyTradeoffs: "Conversational AI vs. traditional dashboard: dashboards are easier to build but don't match how artists think. Chose the harder path of NLP-powered chat, accepting that some query types would be less precise than a filtered table. The friction reduction was worth the accuracy tradeoff.",
+      whatWeDidntBuild: "Scoped out Spotify API integration for real-time streaming data, social media auto-posting, and A/B testing for release strategies. The core insight was that artists need strategy recommendations, not more data — so I focused exclusively on the recommendation engine.",
+    },
     impact: [
       "188,000+ tracks analyzed across multiple platforms and genres",
       "15+ query types supported for personalized release strategies",
@@ -289,6 +313,11 @@ graph.add_conditional_edges(
       "Designed a multi-agent architecture where each agent specializes in one analytical task — ingestion, claim extraction, contradiction detection, methodology comparison, evidence scoring, gap analysis, and literature review generation. Made the key decision to use gpt-4o-mini across all agents for cost efficiency (~$0.01 per analysis) while parallelizing agent execution for speed.",
     solution:
       "Full-stack research platform with 8 LangGraph agents orchestrated in a parallel pipeline. Users upload PDFs via drag-and-drop, define their research question, and receive analysis across 6 tabs: Overview, Contradictions (with severity ratings), Methodology comparison, Evidence scoring (0–100), Gap analysis, and a thematic Literature Review draft. FAISS vector store with OpenAI embeddings powers a RAG chat for follow-up questions grounded in uploaded papers. React frontend with dark theme; FastAPI backend with 12-thread parallel ingestion.",
+    pmThinking: {
+      problemFraming: "Initial assumption was researchers needed 'better search across papers.' User interviews with PhD students revealed the real pain: not finding information, but synthesizing contradictions across 30+ papers and identifying what the field has missed. This shifted the product from search to automated synthesis.",
+      keyTradeoffs: "8 specialized agents vs. 1 general agent: a single agent was simpler but produced inconsistent analysis quality across tasks. Chose multi-agent despite higher complexity because contradiction detection requires fundamentally different reasoning than gap analysis. Also chose gpt-4o-mini over gpt-4o — 10x cheaper, acceptable quality for structured extraction tasks.",
+      whatWeDidntBuild: "Scoped out citation graph visualization, collaborative annotation, and journal submission formatting. Each was requested by early users, but none solved the core problem: 'Help me understand what 30 papers say, where they disagree, and what's missing.' Staying focused on synthesis kept the product coherent.",
+    },
     impact: [
       "8 specialized LangGraph agents running in parallel pipeline for comprehensive analysis",
       "~$0.01–$0.07 per analysis run using gpt-4o-mini — accessible for student researchers",
@@ -339,6 +368,11 @@ graph.add_conditional_edges(
       "Made the critical decision to exclude all post-loan features and use only information available at loan origination. This reduced the feature set dramatically but ensured the model would actually work in a real lending decision pipeline. Engineered domain-specific features and compared 5 model architectures with rigorous cross-validation.",
     solution:
       "End-to-end ML pipeline: feature selection based on domain knowledge (excluding post-loan data), ordinal encoding for sub_grade (A1=1 to G5=35) preserving risk order, target encoding for categorical variables, and engineered features like installment-to-income ratio, DTI × interest rate interaction, and delinquency flags. Trained 5 models (Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost) with GridSearchCV (10-fold CV, AUC scoring). Best performance: XGBoost/Ensemble at 0.80 AUC.",
+    pmThinking: {
+      problemFraming: "The naive framing was 'predict loan defaults with maximum accuracy.' The product framing is: 'predict defaults using only information available when a borrower applies.' This distinction — which features exist at decision time — is a product question disguised as a technical one. It's the difference between a research exercise and a deployable model.",
+      keyTradeoffs: "Accuracy vs. production viability: using all 74 features gave 0.99 AUC (impressive but useless — post-loan features won't exist for new applicants). We chose 0.80 AUC with legitimate features over 0.99 with leaked data. Also chose ensemble averaging over stacking for interpretability — the lending team needs to explain decisions to regulators.",
+      whatWeDidntBuild: "Didn't build a real-time scoring API, credit limit optimizer, or loan pricing engine. The assignment was prediction, but the product insight was: the most valuable contribution was proving which features are leaky, not maximizing AUC.",
+    },
     impact: [
       "0.80 test AUC with XGBoost — using only pre-decision features (no data leakage)",
       "887K loans processed with engineered feature pipeline",
