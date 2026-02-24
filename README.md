@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Srinidhi Jagannathan — Portfolio
+
+Professional portfolio website for AI Product Management job applications.
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Dark Mode**: next-themes
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── about/          # About page
+│   ├── contact/        # Contact page
+│   ├── projects/       # Projects page
+│   ├── fonts/          # Local font files
+│   ├── globals.css     # Global styles & Tailwind
+│   ├── layout.tsx      # Root layout (Navbar, Footer, Theme)
+│   ├── loading.tsx     # Loading skeleton
+│   ├── not-found.tsx   # 404 page
+│   ├── page.tsx        # Home / Landing page
+│   ├── robots.ts       # SEO robots.txt
+│   └── sitemap.ts      # SEO sitemap.xml
+├── components/
+│   ├── Footer.tsx
+│   ├── MotionWrapper.tsx
+│   ├── Navbar.tsx
+│   ├── SectionHeading.tsx
+│   ├── ThemeProvider.tsx
+│   └── ThemeToggle.tsx
+└── lib/
+    └── constants.ts    # Site config, projects, skills data
+```
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+- **Personal Info**: Edit `src/lib/constants.ts` to update your name, links, projects, skills, and experience.
+- **Colors**: Modify the `navy` and `accent` color palettes in `tailwind.config.ts`.
+- **Contact Form**: Replace the Formspree placeholder in `src/app/contact/page.tsx` with your form endpoint.
+- **Resume**: Add your `resume.pdf` to the `public/` directory.
+- **Domain**: Update `siteConfig.url` in `src/lib/constants.ts` with your actual domain.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deploy to [Vercel](https://vercel.com) for the best Next.js experience:
 
-## Deploy on Vercel
+```bash
+npx vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or use any Node.js hosting platform that supports Next.js.

@@ -1,101 +1,113 @@
+import Link from "next/link";
 import Image from "next/image";
+import { impactStats, caseStudies } from "@/lib/data";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="mx-auto max-w-[720px] px-6">
+      {/* Hero */}
+      <section className="pt-20 pb-16 sm:pt-28 sm:pb-20">
+        <h1 className="text-4xl sm:text-5xl font-bold text-neutral-900">
+          Srinidhi Jagannathan
+        </h1>
+        <p className="mt-3 text-xl text-neutral-500">
+          AI Product Manager &amp; Business Analytics
+        </p>
+        <p className="mt-5 text-[17px] text-neutral-600 leading-relaxed max-w-lg">
+          Building production AI systems and turning data into strategic
+          decisions. MSBA student at Santa Clara University.
+        </p>
+        <p className="mt-3 text-[15px] text-neutral-400">
+          San Jose, CA &middot; Available Summer 2026
+        </p>
+        <div className="mt-8 flex gap-4">
+          <Link
+            href="/projects"
+            className="text-[14px] font-medium text-blue-600 hover:text-blue-800 underline underline-offset-4 decoration-blue-200 hover:decoration-blue-400 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            View Work &rarr;
+          </Link>
+          <Link
+            href="/contact"
+            className="text-[14px] font-medium text-neutral-500 hover:text-neutral-900 underline underline-offset-4 decoration-neutral-200 hover:decoration-neutral-400 transition-colors"
           >
-            Read our docs
-          </a>
+            Contact Me
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Stats */}
+      <section className="py-10 border-y border-neutral-100">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6">
+          {impactStats.map((stat) => (
+            <div key={stat.label}>
+              <div className="text-2xl font-semibold text-neutral-900">{stat.value}</div>
+              <div className="text-[13px] text-neutral-500 mt-0.5">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Selected Work */}
+      <section className="py-16 sm:py-20">
+        <h2 className="text-2xl font-semibold text-neutral-900">Selected Work</h2>
+        <p className="mt-2 text-[15px] text-neutral-500">
+          Products I&apos;ve built — from problem discovery to measurable outcomes.
+        </p>
+
+        <div className="mt-10 space-y-16">
+          {caseStudies.map((cs) => (
+            <article key={cs.id}>
+              {/* Image */}
+              {cs.image && (
+                <Link href={`/projects/${cs.id}`} className="block">
+                  <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-neutral-50 border border-neutral-100">
+                    <Image
+                      src={cs.image}
+                      alt={cs.title}
+                      fill
+                      className="object-cover hover:opacity-95 transition-opacity"
+                    />
+                  </div>
+                </Link>
+              )}
+
+              <div className={cs.image ? "mt-5" : ""}>
+                <p className="text-[13px] text-neutral-400">
+                  {cs.company} &middot; {cs.timeline}
+                </p>
+
+                <Link href={`/projects/${cs.id}`}>
+                  <h3 className="mt-1 text-xl font-semibold text-neutral-900 hover:text-blue-600 transition-colors">
+                    {cs.title}
+                  </h3>
+                </Link>
+
+                <p className="mt-1 text-[15px] text-neutral-500">
+                  {cs.oneLiner}
+                </p>
+
+                {/* Metrics */}
+                <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
+                  {cs.heroMetrics.slice(0, 4).map((m) => (
+                    <span key={m.label} className="text-[14px]">
+                      <span className="font-semibold text-neutral-900">{m.value}</span>
+                      <span className="text-neutral-400 ml-1">{m.label}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  href={`/projects/${cs.id}`}
+                  className="inline-block mt-4 text-[14px] text-blue-600 hover:text-blue-800 underline underline-offset-4 decoration-blue-200 hover:decoration-blue-400 transition-colors"
+                >
+                  View Case Study &rarr;
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
