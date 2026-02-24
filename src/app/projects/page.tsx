@@ -103,7 +103,6 @@ export default function WorkPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {filtered.map((cs) => {
               const isFeatured = cs.id === "pettriage-ai";
-              const isWide = cs.id === "pettriage-ai" || cs.id === "lending-club-ml";
               const accent = accentColors[cs.id] || { badge: "bg-white/10 text-white", metric: "text-blue-400" };
               const topTech = cs.tech.slice(0, 5);
               const extraTech = cs.tech.length - 5;
