@@ -26,3 +26,61 @@
     @apply leading-[1.7];
   }
 }
+
+/* ===== Sky: drifting clouds + flying birds ===== */
+.cloud {
+  position: absolute;
+  left: 0;
+  height: auto;
+  filter: drop-shadow(0 8px 10px rgba(120, 150, 180, 0.12));
+  animation-name: cloudDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes cloudDrift {
+  from { transform: translateX(-22vw); }
+  to { transform: translateX(122vw); }
+}
+
+.bird-flock {
+  position: absolute;
+  left: 0;
+  width: 130px;
+  height: 40px;
+  animation-name: birdFly;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes birdFly {
+  from { transform: translate(-12vw, 6vh); }
+  to { transform: translate(116vw, -4vh); }
+}
+.bird {
+  position: absolute;
+  width: 20px;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud, .bird-flock { animation: none; }
+}
+
+/* ===== Cycling guide ===== */
+.rider-bob {
+  animation: riderIdle 2.6s ease-in-out infinite;
+}
+.rider-bob--riding {
+  animation: riderRide 0.4s ease-in-out infinite;
+}
+@keyframes riderIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes riderRide {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rider-bob, .rider-bob--riding { animation: none; }
+}
+

@@ -11,7 +11,7 @@ export function Footer() {
           <Link href="/projects" className="hover:text-neutral-900 transition-colors">Work</Link>
           <Link href="/about" className="hover:text-neutral-900 transition-colors">About</Link>
           <Link href="/contact" className="hover:text-neutral-900 transition-colors">Contact</Link>
-          <a href="https://linkedin.com/in/srinidhi-jagannathan" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-900 transition-colors">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/srinidhi-jagannathan-876998385/" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-900 transition-colors">LinkedIn</a>
           <a href="https://github.com/sjagannathan17" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-900 transition-colors">GitHub</a>
         </div>
       </div>

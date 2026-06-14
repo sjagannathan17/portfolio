@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { skillGroups } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About",
@@ -67,51 +68,7 @@ const education = [
   },
 ];
 
-const skills = [
-  {
-    title: "Product Management",
-    items: [
-      "Product Strategy & Roadmapping",
-      "User Research & Validation",
-      "Agile / Scrum Leadership",
-      "Cross-functional Collaboration",
-      "Stakeholder Management",
-    ],
-  },
-  {
-    title: "AI / ML",
-    items: [
-      "RAG Pipelines",
-      "Multi-Agent Systems",
-      "Vector Databases",
-      "LLM Engineering",
-      "Prompt Engineering",
-      "NLP / Semantic Search",
-    ],
-  },
-  {
-    title: "Technical",
-    items: [
-      "Python",
-      "TypeScript / React",
-      "SQL",
-      "FastAPI / Next.js",
-      "Git & CI/CD",
-      "API Design (REST)",
-    ],
-  },
-  {
-    title: "Tools & Platforms",
-    items: [
-      "Tableau",
-      "Power BI",
-      "Streamlit",
-      "JIRA / Confluence",
-      "Figma",
-      "LangChain / LangSmith",
-    ],
-  },
-];
+const skills = skillGroups;
 
 const recognition = [
   {
@@ -167,7 +124,7 @@ export default function AboutPage() {
             <div className="mt-4 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 text-[12px] text-neutral-500 bg-neutral-100 rounded-full px-3 py-1">
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                San Jose, CA
+                Sunnyvale, CA
               </span>
               <span className="inline-flex items-center gap-1.5 text-[12px] text-emerald-700 bg-emerald-50 rounded-full px-3 py-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -178,7 +135,7 @@ export default function AboutPage() {
             {/* Social Links */}
             <div className="mt-6 flex flex-col gap-2.5 w-full">
               <a
-                href="https://linkedin.com/in/srinidhi-jagannathan"
+                href="https://www.linkedin.com/in/srinidhi-jagannathan-876998385/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2.5 text-[13px] text-neutral-500 hover:text-blue-600 transition-colors"
@@ -252,7 +209,7 @@ export default function AboutPage() {
           </section>
 
           {/* ─ Experience Timeline ─ */}
-          <section className="mb-16">
+          <section id="experience" className="mb-16 scroll-mt-20">
             <h2 className="text-lg font-semibold text-neutral-900 mb-8 uppercase tracking-wider text-[13px]">
               Experience
             </h2>
@@ -306,7 +263,7 @@ export default function AboutPage() {
           </section>
 
           {/* ─ Education Cards ─ */}
-          <section className="mb-16">
+          <section id="education" className="mb-16 scroll-mt-20">
             <h2 className="text-lg font-semibold text-neutral-900 mb-8 uppercase tracking-wider text-[13px]">
               Education
             </h2>
@@ -365,7 +322,7 @@ export default function AboutPage() {
           </section>
 
           {/* ─ Skills Grid ─ */}
-          <section className="mb-16">
+          <section id="skills" className="mb-16 scroll-mt-20">
             <h2 className="text-lg font-semibold text-neutral-900 mb-8 uppercase tracking-wider text-[13px]">
               Skills
             </h2>

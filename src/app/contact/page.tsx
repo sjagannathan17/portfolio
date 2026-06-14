@@ -32,12 +32,12 @@ export default function ContactPage() {
           <div>
             <p className="text-[13px] font-medium text-neutral-400">LinkedIn</p>
             <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="text-[15px] text-blue-600 hover:text-blue-800 underline underline-offset-4 decoration-blue-200 transition-colors">
-              linkedin.com/in/srinidhi-jagannathan
+              linkedin.com/in/srinidhi-jagannathan-876998385
             </a>
           </div>
           <div>
             <p className="text-[13px] font-medium text-neutral-400">Location</p>
-            <p className="text-[15px] text-neutral-600">San Jose, CA &middot; Open to Bay Area &amp; Remote</p>
+            <p className="text-[15px] text-neutral-600">Sunnyvale, CA &middot; Open to Bay Area &amp; Remote</p>
           </div>
         </div>
       </section>

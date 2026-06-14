@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Srinidhi Jagannathan",
   email: "srinidhi.jagan11@gmail.com",
-  linkedin: "https://linkedin.com/in/srinidhi-jagannathan",
+  linkedin: "https://www.linkedin.com/in/srinidhi-jagannathan-876998385/",
   github: "https://github.com/sjagannathan17",
 };
 
@@ -12,12 +12,36 @@ export const impactStats = [
   { value: "1st Prize", label: "Analytics Showdown", context: "Santa Clara 2025" },
 ];
 
-export const skills = {
-  "Product Management": ["Product Strategy & Roadmapping", "User Research & Validation", "Agile / Scrum Leadership", "Cross-functional Collaboration", "Stakeholder Management"],
-  "AI / ML": ["RAG Pipelines", "Multi-Agent Systems (LangGraph)", "Vector Databases (Pinecone, Chroma)", "LLM Engineering (GPT-4, Claude, Gemini)", "Prompt Engineering & Evaluation", "NLP / Semantic Search"],
-  Technical: ["Python (pandas, scikit-learn, FastAPI)", "TypeScript / JavaScript (Next.js, React)", "SQL (PostgreSQL, SQLite)", "Git & GitHub", "API Design (REST, GraphQL)"],
-  "Tools & Platforms": ["Tableau", "Power BI", "Jupyter", "Streamlit", "JIRA", "Confluence", "Figma", "Miro", "LangChain", "LangSmith", "Weights & Biases"],
-};
+export const skillGroups: { title: string; items: string[] }[] = [
+  {
+    title: "Code & Data Foundations",
+    items: ["Python", "SQL", "R", "JavaScript", "Git/GitHub", "Jupyter", "Pandas", "NumPy", "scikit-learn", "PyTorch", "XGBoost"],
+  },
+  {
+    title: "Building with LLMs & Agents",
+    items: ["RAG", "LLMs", "NLP", "Multi-Agent Systems", "LangGraph", "LangChain", "Hugging Face", "NLTK", "GPT-4o", "Ollama", "ChromaDB", "Pinecone", "FAISS", "Claude Code", "Cursor"],
+  },
+  {
+    title: "Modeling & Experimentation",
+    items: ["Feature Engineering", "Hyperparameter Tuning", "Model Evaluation", "LLM Evaluation", "A/B Testing", "Gradient Boosting"],
+  },
+  {
+    title: "Product Craft",
+    items: ["PRDs", "Product Roadmapping", "Product Discovery", "Market Research", "Competitive Analysis", "User Research", "Stakeholder Management", "Cross-functional Leadership", "Release Management", "Incident Management", "Agile/Scrum", "Kanban", "Prototyping", "Wireframing", "Figma", "Jira", "Tableau"],
+  },
+  {
+    title: "From Prototype to Production",
+    items: ["FastAPI", "Streamlit", "Next.js", "v0", "Replit"],
+  },
+  {
+    title: "Data, Optimization & Reliability",
+    items: ["Data Modeling", "ETL Pipelines", "Gurobi", "Splunk", "New Relic"],
+  },
+  {
+    title: "Spoken Languages",
+    items: ["English", "Hindi", "Tamil"],
+  },
+];
 
 /* ────────────── Case Studies ────────────── */
 
