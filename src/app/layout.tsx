@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 
 const inter = localFont({
   src: [
@@ -13,17 +11,19 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sjagannathan17.github.io"),
   title: {
-    default: "Srinidhi Jagannathan — AI Product Manager",
+    default: "Srinidhi Jagannathan — AI Builder & Product",
     template: "%s — Srinidhi Jagannathan",
   },
   description:
-    "AI Product Manager building production AI systems. MSBA at Santa Clara University. Available Summer 2026.",
+    "Master's student in Business Analytics at Santa Clara University — building AI systems (RAG pipelines, multi-agent apps) and making my way into product.",
   authors: [{ name: "Srinidhi Jagannathan" }],
   openGraph: {
     type: "website",
-    title: "Srinidhi Jagannathan — AI Product Manager",
-    description: "Building production AI systems and turning data into strategic decisions.",
+    title: "Srinidhi Jagannathan — AI Builder & Product",
+    description:
+      "Master's student in Business Analytics at Santa Clara University — building AI systems and turning data into decisions.",
   },
   robots: { index: true, follow: true },
 };
@@ -34,9 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-        <Header />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

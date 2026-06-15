@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cdecff"/>
+      <stop offset="1" stop-color="#fff3df"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#sky)"/>
+  <circle cx="46" cy="20" r="7" fill="#ffd76b"/>
+  <!-- Golden Gate bridge -->
+  <g stroke="#e8552d" stroke-width="2.6" fill="none" stroke-linecap="round">
+    <line x1="18" y1="14" x2="18" y2="50"/>
+    <line x1="40" y1="14" x2="40" y2="50"/>
+    <path d="M6 30 C 14 22, 22 22, 29 30"/>
+    <path d="M29 30 C 36 22, 44 22, 51 30"/>
+    <path d="M51 30 C 55 27, 58 27, 60 29"/>
+    <line x1="6" y1="42" x2="58" y2="42"/>
+  </g>
+  <path d="M0 50 H64 V64 H0 Z" fill="#2f7fb8" opacity="0.85"/>
+</svg>

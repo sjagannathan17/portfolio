@@ -84,3 +84,14 @@
   .rider-bob, .rider-bob--riding { animation: none; }
 }
 
+/* ===== Cityscape diorama scale (responsive) ===== */
+/* On phones the 7 landmarks must fit one row without overflow. */
+.cityscene {
+  --sh: clamp(30px, 8vw, 64px);
+}
+@media (min-width: 640px) {
+  .cityscene {
+    --sh: clamp(66px, 12vw, 158px);
+  }
+}
+

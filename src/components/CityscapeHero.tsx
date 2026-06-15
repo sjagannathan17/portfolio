@@ -1,10 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import { museumProjects, skillGroups } from "@/lib/data";
+import {
+  siteConfig,
+  museumProjects,
+  skillGroups,
+  officeWork,
+  officeEducation,
+  officeTeaching,
+  officeCoursework,
+  type OfficeEntry,
+} from "@/lib/data";
 import { Sky } from "@/components/Sky";
 import { Waves } from "@/components/Waves";
 
@@ -21,55 +29,39 @@ type Landmark = {
 };
 
 const LANDMARKS: Landmark[] = [
-  { id: "bridge", label: "Welcome", desc: "About me", href: "/about", src: "/color-bridge.png", width: 1536, height: 572, h: 0.52 },
-  { id: "palace", label: "Education", desc: "Schools & coursework", href: "/about#education", src: "/color-palace.png", width: 1471, height: 751, h: 0.72 },
-  { id: "ladies", label: "Experience", desc: "Where I’ve worked", href: "/about#experience", src: "/color-ladies.png", width: 1477, height: 976, h: 0.95 },
-  { id: "twinpeaks", label: "Projects", desc: "Work & case studies", href: "/projects", src: "/color-twinpeaks.png", width: 1413, height: 951, h: 0.95 },
-  { id: "skills", label: "Skills", desc: "Stack & tools", href: "/about#skills", src: "/color-skills.png", width: 1196, height: 992, h: 0.95 },
+  { id: "bridge", label: "Welcome", desc: "About me", src: "/color-bridge.png", width: 1536, height: 572, h: 0.52 },
+  { id: "palace", label: "Education", desc: "Schools & coursework", src: "/color-palace.png", width: 1471, height: 751, h: 0.72 },
+  { id: "ladies", label: "Experience", desc: "Where I’ve worked", src: "/color-ladies.png", width: 1477, height: 976, h: 0.95 },
+  { id: "twinpeaks", label: "Projects", desc: "Work & case studies", src: "/color-twinpeaks.png", width: 1413, height: 951, h: 0.95 },
+  { id: "skills", label: "Skills", desc: "Stack & tools", src: "/color-skills.png", width: 1196, height: 992, h: 0.95 },
   { id: "skystar", label: "Blog", desc: "Writing & notes", href: "https://medium.com/@srinidhi.jagan11", external: true, src: "/color-skystar.png", width: 1013, height: 1001, h: 1.0 },
-  { id: "coit", label: "Contact", desc: "Reach me & résumé", href: "/contact", src: "/color-coit.png", width: 895, height: 957, h: 0.9 },
+  { id: "coit", label: "Contact", desc: "Reach me", src: "/color-coit.png", width: 895, height: 957, h: 0.9 },
 ];
 
 type PointLink = { prefix?: string; label: string; href: string; external?: boolean };
 type Point = string | PointLink;
-type Detail = { title: string; blurb: string; points: Point[]; cta: string };
+type Detail = { title: string; blurb: string; points: Point[]; cta?: string };
 
 const DETAILS: Record<string, Detail> = {
   bridge: {
-    title: "About Srinidhi",
-    blurb: "AI Product Manager building systems that automate knowledge work at scale.",
-    points: [
-      "MS in Business Analytics — Santa Clara University (3.9 GPA)",
-      "Builds RAG pipelines and multi-agent AI systems",
-      "Based in Sunnyvale, CA · available Summer 2026",
-    ],
-    cta: "View full about",
+    title: "Hi, I’m Srinidhi 👋",
+    blurb: "",
+    points: [],
   },
   palace: {
-    title: "Education",
-    blurb: "Where I studied.",
-    points: [
-      "MS Business Analytics — Santa Clara University (2024–2026), GPA 3.9",
-      "B.E. Electrical & Electronics — SSN College of Engineering",
-      "Coursework: GenAI, Deep Learning, NLP, Product Management",
-    ],
-    cta: "See education",
+    title: "Education & Coursework",
+    blurb: "Where I studied and what I learned.",
+    points: [],
   },
   ladies: {
-    title: "Experience",
-    blurb: "Where I've worked.",
-    points: [
-      "Strategic Analytics Consultant — Flex (AI competitive intelligence)",
-      "Graduate Teaching Assistant — Santa Clara University",
-      "Product & Data Analytics Engineer — iGreenData (ANZ Bank, ~2.5 yrs)",
-    ],
-    cta: "See experience",
+    title: "Professional Experience",
+    blurb: "Where I’ve worked and taught.",
+    points: [],
   },
   twinpeaks: {
-    title: "Museum — Projects",
+    title: "Projects",
     blurb: "A gallery of everything I’ve designed, built, and shipped.",
     points: [],
-    cta: "Browse projects",
   },
   skills: {
     title: "Skills & Stack",
@@ -79,7 +71,6 @@ const DETAILS: Record<string, Detail> = {
       "AI/ML: RAG, multi-agent systems, LLM engineering",
       "Tech: Python, TypeScript/React, SQL, FastAPI",
     ],
-    cta: "See full stack",
   },
   skystar: {
     title: "Blog",
@@ -89,7 +80,7 @@ const DETAILS: Record<string, Detail> = {
   },
   coit: {
     title: "Get in touch",
-    blurb: "Open to Summer 2026 AI Product Management internships.",
+    blurb: "Have a role, project, or idea in mind? Let’s talk.",
     points: [
       {
         prefix: "Email: ",
@@ -102,17 +93,38 @@ const DETAILS: Record<string, Detail> = {
         href: "https://www.linkedin.com/in/srinidhi-jagannathan-876998385/",
         external: true,
       },
-      "Sunnyvale, California",
+      "📍 Sunnyvale, California",
     ],
-    cta: "Contact me",
   },
 };
 
-const SH = "clamp(66px, 12vw, 158px)";
+const ABOUT_PARAGRAPHS: string[] = [
+  "Welcome to my small slice of the city.",
+  "I’m a Master’s student in Business Analytics at Santa Clara University, AI builder, part-time product manager, and occasional debugger of problems that I accidentally created myself.",
+  "Instead of making a traditional portfolio, I built a city. It seemed like a perfectly reasonable idea at the time.",
+  "Every landmark represents a different part of my journey. Twin Peaks houses the projects, the Painted Ladies keep my experience neatly organized, and the Palace of Fine Arts is the very serious home of some very hard-earned degrees.",
+  "Feel free to wander around. Hover over landmarks to learn what they are, click to dig deeper, and don’t worry about getting lost. The best parts of San Francisco are usually found by accident.",
+  "Thanks for visiting. I hope you enjoy this city as much as I enjoyed building it. 🌁",
+];
+
 const IDLE_BUBBLE = "Hop on — follow me around the city!";
 
+// Prefix /public assets with the deploy base path (e.g. "/portfolio" on GitHub Pages).
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (p: string) => `${BASE}${p}`;
+
+const OFFICE_ENTRIES: Record<string, OfficeEntry[]> = {
+  Work: officeWork,
+  Education: officeEducation,
+  Teaching: officeTeaching,
+};
+// Which tabs each landmark's modal shows
+const TAB_SETS: Record<string, readonly string[]> = {
+  ladies: ["Work", "Teaching"],
+  palace: ["Education", "Coursework"],
+};
+
 export function CityscapeHero() {
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const targetX = useMotionValue(0);
@@ -123,11 +135,15 @@ export function CityscapeHero() {
   const [riding, setRiding] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const [active, setActive] = useState<Landmark | null>(null);
+  const [officeTab, setOfficeTab] = useState<string>("Work");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const facingRef = useRef(1);
   const lastXRef = useRef(0);
   const idleTimer = useRef<number | null>(null);
   const initialized = useRef(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const c = containerRef.current;
@@ -138,23 +154,53 @@ export function CityscapeHero() {
     initialized.current = true;
   }, [targetX]);
 
-  const go = useCallback((lm: Landmark) => setActive(lm), []);
+  const go = useCallback((lm: Landmark) => {
+    triggerRef.current = (document.activeElement as HTMLElement) ?? null;
+    if (lm.id === "ladies") setOfficeTab("Work");
+    else if (lm.id === "palace") setOfficeTab("Education");
+    setActive(lm);
+  }, []);
 
-  const followCta = useCallback(() => {
-    if (!active?.href) return;
-    if (active.external) window.open(active.href, "_blank", "noopener,noreferrer");
-    else router.push(active.href);
-    setActive(null);
-  }, [active, router]);
-
+  // Move focus into the modal on open; restore it to the trigger on close.
   useEffect(() => {
     if (!active) return;
+    const node = dialogRef.current;
+    const trigger = triggerRef.current;
+    node?.focus();
+    return () => {
+      trigger?.focus?.();
+    };
+  }, [active]);
+
+  const trapFocus = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab") return;
+    const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables || focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const activeEl = document.activeElement;
+    if (e.shiftKey && (activeEl === first || activeEl === dialogRef.current)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && activeEl === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!active && !menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActive(null);
+      if (e.key === "Escape") {
+        setActive(null);
+        setMenuOpen(false);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [active, menuOpen]);
 
   const handleMove = useCallback(
     (clientX: number) => {
@@ -184,6 +230,8 @@ export function CityscapeHero() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (sessionStorage.getItem("introSeen")) return;
+    sessionStorage.setItem("introSeen", "1");
     setShowIntro(true);
     const t = window.setTimeout(() => setShowIntro(false), 1800);
     return () => window.clearTimeout(t);
@@ -221,22 +269,143 @@ export function CityscapeHero() {
         )}
       </AnimatePresence>
     <section
-      className="relative flex min-h-[calc(100vh-3.5rem)] w-full flex-col overflow-hidden bg-gradient-to-b from-[#cdecff] via-[#e9f5ff] to-[#fff3df]"
+      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-gradient-to-b from-[#cdecff] via-[#e9f5ff] to-[#fff3df]"
       onMouseMove={(e) => handleMove(e.clientX)}
     >
       <div className="pointer-events-none absolute right-[8%] top-[12%] h-28 w-28 rounded-full bg-[#fff7e6] blur-md sm:h-40 sm:w-40" aria-hidden />
       <Sky />
 
-      <div className="relative z-10 px-6 pt-12 text-center sm:pt-16">
-        <h1 className="sr-only">Srinidhi Jagannathan — AI Product Manager</h1>
-        <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-[#5a6b8c]">
-          Glide your mouse to roam · Click a landmark to visit
+      <div className="relative z-10 px-6 pt-20 text-center sm:pt-16">
+        <h1 className="sr-only">
+          Srinidhi Jagannathan — AI Builder &amp; Product, MS Business Analytics at Santa Clara University
+        </h1>
+        <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-[#3a4a6b]">
+          <span className="hidden sm:inline">Glide your mouse to roam · Click a landmark to visit</span>
+          <span className="sm:hidden">Tap a landmark to explore · or use the menu</span>
         </p>
+      </div>
+
+      {/* Crawlable + screen-reader content (the interactive scene above is visual only) */}
+      <div className="sr-only">
+        <section aria-label="About">
+          <h2>About</h2>
+          {ABOUT_PARAGRAPHS.map((p) => (
+            <p key={p.slice(0, 24)}>{p}</p>
+          ))}
+        </section>
+
+        <section aria-label="Projects">
+          <h2>Projects</h2>
+          <ul>
+            {museumProjects.map((p) => (
+              <li key={p.github}>
+                <h3>{p.title}</h3>
+                <p>
+                  {p.context}
+                  {p.date ? ` · ${p.date}` : ""}
+                </p>
+                <p>{p.description}</p>
+                <a href={p.github}>{p.title} on GitHub</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-label="Experience">
+          <h2>Experience</h2>
+          <ul>
+            {officeWork.map((e) => (
+              <li key={`${e.title}-${e.org}`}>
+                <h3>
+                  {e.title} — {e.org}
+                </h3>
+                <p>
+                  {e.period}
+                  {e.location ? ` · ${e.location}` : ""}
+                </p>
+                {e.points?.length ? (
+                  <ul>
+                    {e.points.map((pt) => (
+                      <li key={pt}>{pt}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-label="Teaching">
+          <h2>Teaching</h2>
+          <ul>
+            {officeTeaching.map((e) => (
+              <li key={`${e.title}-${e.org}`}>
+                <h3>
+                  {e.title} — {e.org}
+                </h3>
+                <p>
+                  {e.period}
+                  {e.location ? ` · ${e.location}` : ""}
+                </p>
+                {e.points?.length ? (
+                  <ul>
+                    {e.points.map((pt) => (
+                      <li key={pt}>{pt}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section aria-label="Education">
+          <h2>Education</h2>
+          <ul>
+            {officeEducation.map((e) => (
+              <li key={`${e.title}-${e.org}`}>
+                <h3>
+                  {e.title} — {e.org}
+                </h3>
+                <p>
+                  {e.period}
+                  {e.location ? ` · ${e.location}` : ""}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <h3>Coursework</h3>
+          <p>{officeCoursework.join(", ")}</p>
+        </section>
+
+        <section aria-label="Skills">
+          <h2>Skills</h2>
+          {skillGroups.map((g) => (
+            <div key={g.title}>
+              <h3>{g.title}</h3>
+              <p>{g.items.join(", ")}</p>
+            </div>
+          ))}
+        </section>
+
+        <section aria-label="Contact">
+          <h2>Contact</h2>
+          <p>
+            Email: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          </p>
+          <p>
+            LinkedIn: <a href={siteConfig.linkedin}>{siteConfig.linkedin}</a>
+          </p>
+          <p>
+            GitHub: <a href={siteConfig.github}>{siteConfig.github}</a>
+          </p>
+          <p>Based in Sunnyvale, California</p>
+        </section>
       </div>
 
       <div className="relative z-10 mt-auto w-full">
         {/* Monuments + rider share this coordinate space */}
-        <div ref={containerRef} className="relative w-full" style={{ "--sh": SH } as CSSProperties}>
+        <div ref={containerRef} className="cityscene relative w-full">
           <div className="flex items-end justify-center">
             {LANDMARKS.map((lm) => (
               <button
@@ -256,11 +425,10 @@ export function CityscapeHero() {
                   </span>
                 )}
                 <Image
-                  src={lm.src}
+                  src={asset(lm.src)}
                   alt={lm.href ? lm.label : ""}
                   width={lm.width}
                   height={lm.height}
-                  priority
                   sizes="(max-width: 768px) 24vw, 260px"
                   style={{ height: `calc(var(--sh) * ${lm.h})`, width: "auto" }}
                   className="object-contain drop-shadow-[0_10px_18px_rgba(31,42,68,0.18)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5 group-focus-visible:-translate-y-1.5 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0"
@@ -269,8 +437,8 @@ export function CityscapeHero() {
             ))}
           </div>
 
-          {/* The cycling guide follows the cursor */}
-          <div className="pointer-events-none absolute bottom-0 left-0 z-30 w-full">
+          {/* The cycling guide follows the cursor (desktop only — needs a mouse) */}
+          <div className="pointer-events-none absolute bottom-0 left-0 z-30 hidden w-full sm:block">
             <motion.div style={{ x: riderX }} className="absolute bottom-0 left-0">
               <div className="relative -translate-x-1/2">
                 <div className={riding ? "rider-bob rider-bob--riding" : "rider-bob"}>
@@ -279,11 +447,10 @@ export function CityscapeHero() {
                     <span className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-x-[7px] border-t-[8px] border-x-transparent border-t-white" />
                   </div>
                   <Image
-                    src="/color-rider.png"
+                    src={asset("/color-rider.png")}
                     alt="Your San Francisco cycling guide"
                     width={1111}
                     height={1012}
-                    priority
                     style={{ height: "calc(var(--sh) * 0.6)", width: "auto", transform: `scaleX(${facing})` }}
                     className="object-contain drop-shadow-[0_8px_12px_rgba(31,42,68,0.22)]"
                   />
@@ -300,6 +467,51 @@ export function CityscapeHero() {
         </div>
       </div>
     </section>
+
+    {/* Quick-nav menu for visitors who prefer straightforward navigation */}
+    {menuOpen && (
+      <button
+        type="button"
+        aria-hidden
+        tabIndex={-1}
+        onClick={() => setMenuOpen(false)}
+        className="fixed inset-0 z-40 cursor-default"
+      />
+    )}
+    <div className="fixed right-4 top-4 z-50">
+      <button
+        type="button"
+        onClick={() => setMenuOpen((o) => !o)}
+        aria-expanded={menuOpen}
+        aria-haspopup="true"
+        aria-label="Open navigation menu"
+        className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border border-white/60 bg-white/85 shadow-[0_6px_18px_rgba(31,42,68,0.16)] backdrop-blur-md transition-colors hover:bg-white"
+      >
+        <span className="block h-[2px] w-5 rounded-full bg-[#1f2a44]" />
+        <span className="block h-[2px] w-5 rounded-full bg-[#1f2a44]" />
+        <span className="block h-[2px] w-5 rounded-full bg-[#1f2a44]" />
+      </button>
+      {menuOpen && (
+        <nav
+          aria-label="Quick navigation"
+          className="absolute right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-white/60 bg-white/95 py-1 shadow-[0_12px_30px_rgba(31,42,68,0.18)] backdrop-blur-md"
+        >
+          {LANDMARKS.map((lm) => (
+            <button
+              key={lm.id}
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                go(lm);
+              }}
+              className="block w-full px-4 py-2 text-left text-[13px] font-medium text-[#1f2a44] transition-colors hover:bg-[#1f2a44] hover:text-white"
+            >
+              {lm.label}
+            </button>
+          ))}
+        </nav>
+      )}
+    </div>
 
     <AnimatePresence>
       {active && (
@@ -320,8 +532,11 @@ export function CityscapeHero() {
             exit={{ opacity: 0 }}
           />
           <motion.div
-            className={`relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-2xl p-6 shadow-2xl ring-1 ring-black/5 sm:p-8 ${
-              active.id === "twinpeaks" ? "max-w-5xl bg-white" : "max-w-md bg-white"
+            ref={dialogRef}
+            tabIndex={-1}
+            onKeyDown={trapFocus}
+            className={`relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl outline-none ring-1 ring-black/5 sm:p-8 ${
+              active.id === "twinpeaks" ? "max-w-5xl" : "max-w-xl"
             }`}
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -337,17 +552,22 @@ export function CityscapeHero() {
               ✕
             </button>
 
-            <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-neutral-900">
-              {active.label}
-            </p>
-            <h2 className="mt-1 text-xl font-bold text-neutral-900">
+            <h2 className="text-xl font-bold text-neutral-900">
               {DETAILS[active.id]?.title}
             </h2>
-            <p className="mt-2 text-[15px] leading-relaxed text-neutral-900">
-              {DETAILS[active.id]?.blurb}
-            </p>
+            {DETAILS[active.id]?.blurb ? (
+              <p className="mt-2 text-[15px] leading-relaxed text-neutral-600">
+                {DETAILS[active.id]?.blurb}
+              </p>
+            ) : null}
 
-            {active.id === "skills" ? (
+            {active.id === "bridge" ? (
+              <div className="mt-4 space-y-3 text-[14px] leading-relaxed text-neutral-600">
+                {ABOUT_PARAGRAPHS.map((p) => (
+                  <p key={p.slice(0, 24)}>{p}</p>
+                ))}
+              </div>
+            ) : active.id === "skills" ? (
               <div className="mt-4 space-y-4">
                 {skillGroups.map((g) => (
                   <div key={g.title}>
@@ -396,13 +616,74 @@ export function CityscapeHero() {
                   </article>
                 ))}
               </div>
+            ) : active.id === "ladies" || active.id === "palace" ? (
+              <div className="mt-5">
+                <div role="tablist" className="flex flex-wrap gap-2 border-b border-neutral-100 pb-3">
+                  {(TAB_SETS[active.id] ?? []).map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      role="tab"
+                      aria-selected={officeTab === t}
+                      onClick={() => setOfficeTab(t)}
+                      className={`rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${
+                        officeTab === t
+                          ? "bg-neutral-900 text-white"
+                          : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                      }`}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-5">
+                  {officeTab === "Coursework" ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      {officeCoursework.map((c) => (
+                        <span
+                          key={c}
+                          className="rounded-full bg-neutral-100 px-2.5 py-1 text-[12px] text-neutral-900"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <ol className="space-y-5">
+                      {(OFFICE_ENTRIES[officeTab] ?? []).map((e) => (
+                        <li key={`${e.title}-${e.org}`} className="border-l-2 border-neutral-200 pl-4">
+                          <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                            <h3 className="text-[15px] font-semibold text-neutral-900">{e.title}</h3>
+                            <span className="shrink-0 text-[12px] text-neutral-400">{e.period}</span>
+                          </div>
+                          <p className="mt-0.5 text-[13px] text-neutral-500">
+                            {e.org}
+                            {e.location ? ` · ${e.location}` : ""}
+                          </p>
+                          {e.points?.length ? (
+                            <ul className="mt-2 space-y-1.5">
+                              {e.points.map((pt) => (
+                                <li key={pt} className="flex gap-2 text-[13px] leading-relaxed text-neutral-600">
+                                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-neutral-400" aria-hidden />
+                                  <span>{pt}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              </div>
             ) : DETAILS[active.id]?.points.length ? (
               <ul className="mt-4 space-y-2">
                 {DETAILS[active.id].points.map((p) => {
                   const key = typeof p === "string" ? p : p.label;
                   return (
-                    <li key={key} className="flex gap-2 text-[14px] text-neutral-900">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-900" />
+                    <li key={key} className="flex gap-2 text-[13px] leading-relaxed text-neutral-600">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-neutral-400" />
                       {typeof p === "string" ? (
                         <span>{p}</span>
                       ) : (
@@ -424,28 +705,18 @@ export function CityscapeHero() {
               </ul>
             ) : null}
 
-            {active.id !== "skills" && active.id !== "twinpeaks" &&
-              (active.external && active.href ? (
-                <a
-                  href={active.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setActive(null)}
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border border-neutral-900 bg-white px-5 py-2.5 text-[14px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
-                >
-                  {DETAILS[active.id]?.cta}
-                  <span aria-hidden>↗</span>
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  onClick={followCta}
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border border-neutral-900 bg-white px-5 py-2.5 text-[14px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
-                >
-                  {DETAILS[active.id]?.cta}
-                  <span aria-hidden>→</span>
-                </button>
-              ))}
+            {active.external && active.href && (
+              <a
+                href={active.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setActive(null)}
+                className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-neutral-900 px-3.5 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-neutral-700"
+              >
+                {DETAILS[active.id]?.cta}
+                <span aria-hidden>↗</span>
+              </a>
+            )}
           </motion.div>
         </motion.div>
       )}
