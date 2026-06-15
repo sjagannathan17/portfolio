@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import { skillGroups } from "@/lib/data";
+import { museumProjects, skillGroups } from "@/lib/data";
 import { Sky } from "@/components/Sky";
 import { Waves } from "@/components/Waves";
 
@@ -324,7 +324,9 @@ export function CityscapeHero() {
             exit={{ opacity: 0 }}
           />
           <motion.div
-            className="relative z-10 max-h-[85vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-black/5"
+            className={`relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-black/5 ${
+              active.id === "twinpeaks" ? "max-w-3xl" : "max-w-md"
+            }`}
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
@@ -369,6 +371,35 @@ export function CityscapeHero() {
                   </div>
                 ))}
               </div>
+            ) : active.id === "twinpeaks" ? (
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {museumProjects.map((p) => (
+                  <div
+                    key={p.github}
+                    className="flex flex-col rounded-xl border border-neutral-200 bg-white p-4 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-neutral-400 hover:shadow-[0_12px_28px_rgba(31,42,68,0.15)]"
+                  >
+                    <h3 className="text-[15px] font-semibold text-neutral-900">
+                      {p.title}
+                    </h3>
+                    <p className="mt-0.5 text-[12px] text-neutral-500">
+                      {p.context}
+                      {p.date ? ` · ${p.date}` : ""}
+                    </p>
+                    <p className="mt-2 flex-1 text-[13px] leading-relaxed text-neutral-800">
+                      {p.description}
+                    </p>
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-1.5 self-start rounded-lg border border-neutral-900 px-3.5 py-2 text-[13px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+                    >
+                      View Project
+                      <span aria-hidden>↗</span>
+                    </a>
+                  </div>
+                ))}
+              </div>
             ) : DETAILS[active.id]?.points.length ? (
               <ul className="mt-4 space-y-2">
                 {DETAILS[active.id].points.map((p) => {
@@ -397,7 +428,7 @@ export function CityscapeHero() {
               </ul>
             ) : null}
 
-            {active.id !== "skills" &&
+            {active.id !== "skills" && active.id !== "twinpeaks" &&
               (active.external && active.href ? (
                 <a
                   href={active.href}

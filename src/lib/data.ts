@@ -43,6 +43,102 @@ export const skillGroups: { title: string; items: string[] }[] = [
   },
 ];
 
+/* ────────────── Museum: all projects (GitHub-linked) ────────────── */
+
+export const museumProjects: {
+  title: string;
+  context: string;
+  date?: string;
+  description: string;
+  github: string;
+}[] = [
+  {
+    title: "PetTriage AI",
+    context: "Santa Clara University · GenAI Course",
+    date: "Jan 2026",
+    description:
+      "Dual-agent veterinary triage system that answers \"should I go to the ER?\" in seconds, with a 4-layer safety system that hard-routes life-threatening symptoms. Shipped in a 10-day sprint.",
+    github: "https://github.com/sjagannathan17/pettriage-ai",
+  },
+  {
+    title: "Flex Competitive Intelligence",
+    context: "Flex Ltd. · SCU Practicum",
+    date: "2026",
+    description:
+      "AI platform tracking 5 contract manufacturers' AI capex across 405+ SEC filings, earnings calls, patents and job posts. A hybrid RAG + web-search pipeline that replaces five-figure SaaS with ~$30/month.",
+    github: "https://github.com/sjagannathan17/flex-competitive-intelligence",
+  },
+  {
+    title: "LitLens",
+    context: "Santa Clara University · GenAI Course",
+    date: "2025",
+    description:
+      "Drag in 10 papers and get a literature review with contradictions, gaps, and an evidence-scored draft in ~2 minutes for about $0.01 — 8 LangGraph agents over a FAISS index.",
+    github: "https://github.com/sjagannathan17/litlens",
+  },
+  {
+    title: "SmartReview",
+    context: "NLP Capstone",
+    date: "2026",
+    description:
+      "End-to-end NLP pipeline turning product reviews into sentiment (0.856 CV accuracy), aspect intelligence, per-category topics, and a confidence-gated /analyze API.",
+    github: "https://github.com/sjagannathan17/smartreview-nlp",
+  },
+  {
+    title: "GreenCity Logistics Optimization",
+    context: "Prescriptive Analytics Capstone · team",
+    date: "2026",
+    description:
+      "Prescriptive model choosing which fulfillment centers to open and how to route to cut both cost and CO₂ — a 21.9% emissions reduction for +0.1% cost, across 5 model classes (LP/MIP/multi-objective/NLP) on Gurobi.",
+    github: "https://github.com/sjagannathan17/greencity-logistics-optimization",
+  },
+  {
+    title: "Agri-Intelligence Platform",
+    context: "Good Nature Agro (Zambia)",
+    date: "2026",
+    description:
+      "WhatsApp-native AI for 22K smallholder farmers — a 5-agent system delivering per-zone, per-risk-tier nudges and tool-grounded Claude chat in English, Bemba, and Nyanja.",
+    github: "https://github.com/sjagannathan17/agri-intelligence-platform",
+  },
+  {
+    title: "Spotify Post-Release Optimizer",
+    context: "Personal Project",
+    date: "Dec 2025",
+    description:
+      "Analyzed 188K tracks to surface statistically significant album-sequencing patterns, then wrapped them in an AI chatbot that gives artists a personalized release playbook.",
+    github: "https://github.com/sjagannathan17/spotify-release-optimizer",
+  },
+  {
+    title: "Amazon India Pricing Strategy",
+    context: "Analytics Project",
+    description:
+      "PM-framed analysis of ~550K SKUs — K-means category segmentation, a hit-prediction model, and a competitive 2×2 pricing matrix benchmarked against Flipkart.",
+    github: "https://github.com/sjagannathan17/amazon-india-pricing-strategy",
+  },
+  {
+    title: "Stylometric AI-Text Detection",
+    context: "ML Project",
+    description:
+      "Interpretable AI-vs-human text classifier on 11.5K samples with SHAP analysis — and an honest look at why aggregate accuracy hides near-random performance on paraphrased text.",
+    github: "https://github.com/sjagannathan17/stylometric-ai-text-detection",
+  },
+  {
+    title: "Tesla Workforce Optimization",
+    context: "Optimization Project",
+    description:
+      "Linear-programming model for bilingual customer-support staffing that saves $100/day (2.2%) while satisfying every coverage constraint.",
+    github: "https://github.com/sjagannathan17/tesla-workforce-optimization",
+  },
+  {
+    title: "Lending Club Default Prediction",
+    context: "Santa Clara University · ML Course",
+    date: "2025",
+    description:
+      "Default-prediction on 887K loans using only origination-time features (no data leakage) — AUC 0.80 with a calibration-aware methodology.",
+    github: "https://github.com/sjagannathan17/lending-club-default-prediction",
+  },
+];
+
 /* ────────────── Case Studies ────────────── */
 
 export interface CaseStudy {
@@ -84,7 +180,7 @@ export const caseStudies: CaseStudy[] = [
     timeline: "10-day sprint — Jan 2026",
     role: "Product & Technical Lead — 4-person team",
     image: "/projects/pettriage.png",
-    github: "https://github.com/sjagannathan17/Fuzzy-Friend",
+    github: "https://github.com/sjagannathan17/pettriage-ai",
     tech: ["LangGraph", "Pinecone", "GPT-4.1-mini", "GPT-4o-mini", "GPT-4o Vision", "Gemini 2.0 Flash", "Next.js", "FastAPI"],
     heroMetrics: [
       { value: "500ms", label: "Response Time" },
@@ -171,7 +267,7 @@ graph.add_conditional_edges(
     status: "In Progress",
     timeline: "Jan 2026 – Present (12-week sprint)",
     role: "Strategic Analytics Consultant — 4-person team",
-    github: "https://github.com/sjagannathan17/Flex-Practicum-Project-2026",
+    github: "https://github.com/sjagannathan17/flex-competitive-intelligence",
     tech: ["ChromaDB", "Claude API", "FastAPI", "Next.js", "Python", "Brave Search", "Sentence Transformers"],
     heroMetrics: [
       { value: "405+", label: "Documents Indexed" },
@@ -280,7 +376,7 @@ graph.add_conditional_edges(
     timeline: "Dec 2025",
     role: "Sole Developer & Product Owner",
     image: "/projects/post-release.png",
-    github: "https://github.com/sjagannathan17/spotify-track-optimizer",
+    github: "https://github.com/sjagannathan17/spotify-release-optimizer",
     tech: ["Python", "NLP", "LLMs", "Pandas", "Streamlit"],
     heroMetrics: [
       { value: "188K+", label: "Tracks Analyzed" },
@@ -323,7 +419,7 @@ graph.add_conditional_edges(
     timeline: "2025",
     role: "Sole Developer & Product Owner",
     image: "/projects/litlens-demo.png",
-    github: "https://github.com/sjagannathan17/LitLens",
+    github: "https://github.com/sjagannathan17/litlens",
     tech: ["LangGraph", "LangChain", "GPT-4o-mini", "FAISS", "React", "FastAPI", "OpenAI Embeddings", "Python"],
     heroMetrics: [
       { value: "8", label: "Specialized Agents" },
@@ -378,7 +474,7 @@ graph.add_conditional_edges(
     timeline: "2025",
     role: "ML Engineer — Team Project",
     image: "/projects/lending-club-models.png",
-    github: "https://github.com/sjagannathan17/Lending-Club-ML-Analysis",
+    github: "https://github.com/sjagannathan17/lending-club-default-prediction",
     tech: ["Python", "XGBoost", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
     heroMetrics: [
       { value: "0.80", label: "Test AUC" },
