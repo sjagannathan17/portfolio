@@ -100,7 +100,7 @@ const DETAILS: Record<string, Detail> = {
 
 const ABOUT_PARAGRAPHS: string[] = [
   "Welcome to my small slice of the city.",
-  "I’m a Master’s student in Business Analytics at Santa Clara University, AI builder, part-time product manager, and occasional debugger of problems that I accidentally created myself.",
+  "I’m a Master’s student in Business Analytics at Santa Clara University, AI builder and product manager, and occasional debugger of problems that I accidentally created myself.",
   "Instead of making a traditional portfolio, I built a city. It seemed like a perfectly reasonable idea at the time.",
   "Every landmark represents a different part of my journey. Twin Peaks houses the projects, the Painted Ladies keep my experience neatly organized, and the Palace of Fine Arts is the very serious home of some very hard-earned degrees.",
   "Feel free to wander around. Hover over landmarks to learn what they are, click to dig deeper, and don’t worry about getting lost. The best parts of San Francisco are usually found by accident.",
