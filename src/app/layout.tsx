@@ -11,7 +11,7 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sjagannathan17.github.io"),
+  metadataBase: new URL("https://srinidhijagannathan.com"),
   title: {
     default: "Srinidhi Jagannathan — AI Builder & Product",
     template: "%s — Srinidhi Jagannathan",
