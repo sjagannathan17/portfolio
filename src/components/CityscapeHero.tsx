@@ -66,13 +66,9 @@ const DETAILS: Record<string, Detail> = {
     cta: "See experience",
   },
   twinpeaks: {
-    title: "Projects",
-    blurb: "Selected work & case studies.",
-    points: [
-      "PetTriage AI — dual-agent veterinary triage system",
-      "Flex Competitive Intelligence platform",
-      "LitLens — multi-agent literature-review tool",
-    ],
+    title: "Museum — Projects",
+    blurb: "A gallery of everything I’ve designed, built, and shipped.",
+    points: [],
     cta: "Browse projects",
   },
   skills: {
@@ -324,8 +320,8 @@ export function CityscapeHero() {
             exit={{ opacity: 0 }}
           />
           <motion.div
-            className={`relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-black/5 ${
-              active.id === "twinpeaks" ? "max-w-3xl" : "max-w-md"
+            className={`relative z-10 max-h-[85vh] w-full overflow-y-auto rounded-2xl p-6 shadow-2xl ring-1 ring-black/5 sm:p-8 ${
+              active.id === "twinpeaks" ? "max-w-5xl bg-white" : "max-w-md bg-white"
             }`}
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -372,32 +368,32 @@ export function CityscapeHero() {
                 ))}
               </div>
             ) : active.id === "twinpeaks" ? (
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="mt-6 grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {museumProjects.map((p) => (
-                  <div
+                  <article
                     key={p.github}
-                    className="flex flex-col rounded-xl border border-neutral-200 bg-white p-4 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-neutral-400 hover:shadow-[0_12px_28px_rgba(31,42,68,0.15)]"
+                    className="group flex h-full flex-col rounded-2xl bg-white p-5 shadow-[0_4px_16px_rgba(31,42,68,0.06)] ring-1 ring-black/5 transition-all duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_34px_rgba(31,42,68,0.12)]"
                   >
-                    <h3 className="text-[15px] font-semibold text-neutral-900">
+                    <h3 className="text-[17px] font-semibold leading-snug text-neutral-900">
                       {p.title}
                     </h3>
-                    <p className="mt-0.5 text-[12px] text-neutral-500">
+                    <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-400">
                       {p.context}
                       {p.date ? ` · ${p.date}` : ""}
                     </p>
-                    <p className="mt-2 flex-1 text-[13px] leading-relaxed text-neutral-800">
+                    <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-neutral-600">
                       {p.description}
                     </p>
                     <a
                       href={p.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-1.5 self-start rounded-lg border border-neutral-900 px-3.5 py-2 text-[13px] font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
+                      className="mt-4 inline-flex items-center gap-1.5 self-start text-[13px] font-medium text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-900"
                     >
                       View Project
                       <span aria-hidden>↗</span>
                     </a>
-                  </div>
+                  </article>
                 ))}
               </div>
             ) : DETAILS[active.id]?.points.length ? (
